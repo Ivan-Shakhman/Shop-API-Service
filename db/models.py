@@ -25,8 +25,29 @@ class Product(DeclarativeBase):
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
     name: Mapped[str]
     price: Mapped[Decimal]
-    rel_category_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
-    rel_distributor_id: Mapped[int] = mapped_column(Integer, ForeignKey("distributor.id"))
+    category_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
+    distributor_id: Mapped[int] = mapped_column(Integer, ForeignKey("distributor.id"))
 
-    rel_category = relationship("category")
-    rel_distributor = relationship("distributor")
+    category = relationship("Category")
+    distributor = relationship("Distributor")
+
+
+class Position(DeclarativeBase):
+    __tablename__ = "position"
+
+    id: Mapped[int] = mapped_column(index=True, primary_key=True)
+    name: Mapped[str]
+    salary: Mapped[Decimal]
+
+
+class Personal(DeclarativeBase):
+    __tablename__ = "personal"
+
+    id: Mapped[int] = mapped_column(index=True, primary_key=True)
+    username: Mapped[str] = mapped_column(unique=True, nullable=False, index=True)
+    password: Mapped[str] = mapped_column(nullable=False)
+    first_name: Mapped[str] = mapped_column(nullable=False)
+    last_name: Mapped[str] = mapped_column(nullable=False)
+    position_id: Mapped[int] = mapped_column(Integer, ForeignKey("position.id"), nullable=False)
+
+    position = relationship("Position")
