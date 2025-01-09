@@ -77,7 +77,7 @@ class Order(DeclarativeBase):
 class Basket(DeclarativeBase):
     __tablename__ = "basket"
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.id")
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
     user = relationship("User")
 
