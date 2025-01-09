@@ -8,3 +8,11 @@ class Category(DeclarativeBase):
     name: Mapped[str]
     age_limit: Mapped[int]
 
+
+class Distributor(DeclarativeBase):
+    __tablename__ = "distributor"
+
+    id: Mapped[int] = mapped_column(index=True, primary_key=True)
+    name: Mapped[str]
+    country: Mapped[str]
+
