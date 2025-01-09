@@ -1,6 +1,7 @@
+import datetime
 from decimal import Decimal
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, ForeignKey
+from sqlalchemy import Integer, ForeignKey, DateTime
 
 
 class Category(DeclarativeBase):
@@ -61,3 +62,13 @@ class User(DeclarativeBase):
     password: Mapped[str] = mapped_column(nullable=False)
     first_name: Mapped[str]
     last_name: Mapped[str]
+
+
+class Order(DeclarativeBase):
+    __tablename__ = "order"
+
+    id: Mapped[int] = mapped_column(index=True, primary_key=True)
+    created_at: Mapped[str] = mapped_column(DateTime, nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+
+    user = relationship("User")
