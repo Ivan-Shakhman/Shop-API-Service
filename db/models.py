@@ -51,3 +51,13 @@ class Personal(DeclarativeBase):
     position_id: Mapped[int] = mapped_column(Integer, ForeignKey("position.id"), nullable=False)
 
     position = relationship("Position")
+
+
+class User(DeclarativeBase):
+    __tablename__ = "user"
+
+    id: Mapped[int] = mapped_column(index=True, primary_key=True)
+    email: Mapped[str] = mapped_column(nullable=False, unique=True)
+    password: Mapped[str] = mapped_column(nullable=False)
+    first_name: Mapped[str]
+    last_name: Mapped[str]
