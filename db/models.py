@@ -81,3 +81,26 @@ class Basket(DeclarativeBase):
 
     user = relationship("User")
 
+
+class BasketItem(DeclarativeBase):
+    __tablename__ = "basket_item"
+
+    id: Mapped[int] = mapped_column(index=True, primary_key=True)
+    basket_id: Mapped[int] = mapped_column(ForeignKey("basket.id"))
+    product_id: Mapped[int] = mapped_column(ForeignKey("product.id"))
+    quantity: Mapped[int] = mapped_column(nullable=False)
+
+    basket = relationship("Basket")
+    product = relationship("Product")
+
+
+class OrderItem(DeclarativeBase):
+    __tablename__ = "order_item"
+
+    id: Mapped[int] = mapped_column(index=True, primary_key=True)
+    order_id: Mapped[int] = mapped_column(ForeignKey("order.id"))
+    product_id: Mapped[int] = mapped_column(ForeignKey("product.id"))
+    quantity: Mapped[int] = mapped_column(nullable=False)
+
+    basket = relationship("Order")
+    product = relationship("Product")
