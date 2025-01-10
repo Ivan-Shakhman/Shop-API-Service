@@ -4,7 +4,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Integer, ForeignKey, DateTime
 
 
-class Category(DeclarativeBase):
+class CategoryDB(DeclarativeBase):
     __tablename__ = "category"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -12,7 +12,7 @@ class Category(DeclarativeBase):
     age_limit: Mapped[int]
 
 
-class Distributor(DeclarativeBase):
+class DistributorDB(DeclarativeBase):
     __tablename__ = "distributor"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -20,7 +20,7 @@ class Distributor(DeclarativeBase):
     country: Mapped[str]
 
 
-class Product(DeclarativeBase):
+class ProductDB(DeclarativeBase):
     __tablename__ = "product"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -29,11 +29,11 @@ class Product(DeclarativeBase):
     category_id: Mapped[int] = mapped_column(Integer, ForeignKey("category.id"))
     distributor_id: Mapped[int] = mapped_column(Integer, ForeignKey("distributor.id"))
 
-    category = relationship("Category")
-    distributor = relationship("Distributor")
+    category = relationship("CategoryDB")
+    distributor = relationship("DistributorDB")
 
 
-class Position(DeclarativeBase):
+class PositionDB(DeclarativeBase):
     __tablename__ = "position"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -41,7 +41,7 @@ class Position(DeclarativeBase):
     salary: Mapped[Decimal]
 
 
-class Personal(DeclarativeBase):
+class PersonalDB(DeclarativeBase):
     __tablename__ = "personal"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -51,10 +51,10 @@ class Personal(DeclarativeBase):
     last_name: Mapped[str] = mapped_column(nullable=False)
     position_id: Mapped[int] = mapped_column(Integer, ForeignKey("position.id"), nullable=False)
 
-    position = relationship("Position")
+    position = relationship("PositionDB")
 
 
-class User(DeclarativeBase):
+class UserDB(DeclarativeBase):
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -64,25 +64,25 @@ class User(DeclarativeBase):
     last_name: Mapped[str]
 
 
-class Order(DeclarativeBase):
+class OrderDB(DeclarativeBase):
     __tablename__ = "order"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
     created_at: Mapped[str] = mapped_column(DateTime, nullable=False)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
-    user = relationship("User")
+    user = relationship("UserDB")
 
 
-class Basket(DeclarativeBase):
+class BasketDB(DeclarativeBase):
     __tablename__ = "basket"
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
-    user = relationship("User")
+    user = relationship("UserDB")
 
 
-class BasketItem(DeclarativeBase):
+class BasketItemDB(DeclarativeBase):
     __tablename__ = "basket_item"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -90,11 +90,11 @@ class BasketItem(DeclarativeBase):
     product_id: Mapped[int] = mapped_column(ForeignKey("product.id"))
     quantity: Mapped[int] = mapped_column(nullable=False)
 
-    basket = relationship("Basket")
-    product = relationship("Product")
+    basket = relationship("BasketDB")
+    product = relationship("ProductDB")
 
 
-class OrderItem(DeclarativeBase):
+class OrderItemDB(DeclarativeBase):
     __tablename__ = "order_item"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -102,5 +102,5 @@ class OrderItem(DeclarativeBase):
     product_id: Mapped[int] = mapped_column(ForeignKey("product.id"))
     quantity: Mapped[int] = mapped_column(nullable=False)
 
-    basket = relationship("Order")
-    product = relationship("Product")
+    basket = relationship("OrderDB")
+    product = relationship("ProductDB")
