@@ -12,6 +12,11 @@ class CategoryCreate(CategoryBase):
     pass
 
 
+class CategoryUpdate(BaseModel):
+    name: str | None = None
+    age_limit: int | None = None
+
+
 class Category(CategoryBase):
     id: int
 

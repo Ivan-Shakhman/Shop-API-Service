@@ -29,3 +29,16 @@ async def get_category_by_id(
     if not db_category:
         raise HTTPException(status_code=404, detail="category not found!")
     return db_category
+
+
+@router.patch("/{category_id}")
+async def update_category(
+        category_id: int,
+        update_data: schemas.CategoryUpdate,
+        db: Session = Depends(get_db)
+):
+    return category_crud.update_category(
+        db=db,
+        category_id=category_id,
+        update_data=update_data
+    )
