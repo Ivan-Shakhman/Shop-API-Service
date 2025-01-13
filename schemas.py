@@ -8,6 +8,10 @@ class CategoryBase(BaseModel):
     age_limit: int
 
 
+class CategoryCreate(CategoryBase):
+    pass
+
+
 class Category(CategoryBase):
     id: int
 

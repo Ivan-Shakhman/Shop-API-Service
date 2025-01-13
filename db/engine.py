@@ -1,7 +1,13 @@
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
+DATABASE_URL = "shop.db"
+sqlite_url = f"sqlite:///./{DATABASE_URL}"
 
-DATABASE_URL = "postgresql://username:password@localhost/shop_db"
-
-engine = create_async_engine(DATABASE_URL)
-SessionLocal = async_sessionmaker(bind=engine, autoflush=False, autocommit=False)
+connect_args = {"check_same_thread": False}
+engine = create_engine(sqlite_url, connect_args=connect_args)
+SessionLocal = sessionmaker(
+    bind=engine, autoflush=False, autocomit=False
+)
+Base = declarative_base()

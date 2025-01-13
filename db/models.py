@@ -1,10 +1,11 @@
 import datetime
 from decimal import Decimal
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, ForeignKey, DateTime
+from db.engine import Base
 
 
-class CategoryDB(DeclarativeBase):
+class CategoryDB(Base):
     __tablename__ = "category"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -12,7 +13,7 @@ class CategoryDB(DeclarativeBase):
     age_limit: Mapped[int]
 
 
-class DistributorDB(DeclarativeBase):
+class DistributorDB(Base):
     __tablename__ = "distributor"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -20,7 +21,7 @@ class DistributorDB(DeclarativeBase):
     country: Mapped[str]
 
 
-class ProductDB(DeclarativeBase):
+class ProductDB(Base):
     __tablename__ = "product"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -33,7 +34,7 @@ class ProductDB(DeclarativeBase):
     distributor = relationship("DistributorDB")
 
 
-class PositionDB(DeclarativeBase):
+class PositionDB(Base):
     __tablename__ = "position"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -41,7 +42,7 @@ class PositionDB(DeclarativeBase):
     salary: Mapped[Decimal]
 
 
-class PersonalDB(DeclarativeBase):
+class PersonalDB(Base):
     __tablename__ = "personal"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -54,7 +55,7 @@ class PersonalDB(DeclarativeBase):
     position = relationship("PositionDB")
 
 
-class UserDB(DeclarativeBase):
+class UserDB(Base):
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -64,7 +65,7 @@ class UserDB(DeclarativeBase):
     last_name: Mapped[str]
 
 
-class OrderDB(DeclarativeBase):
+class OrderDB(Base):
     __tablename__ = "order"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -74,7 +75,7 @@ class OrderDB(DeclarativeBase):
     user = relationship("UserDB")
 
 
-class BasketDB(DeclarativeBase):
+class BasketDB(Base):
     __tablename__ = "basket"
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
@@ -82,7 +83,7 @@ class BasketDB(DeclarativeBase):
     user = relationship("UserDB")
 
 
-class BasketItemDB(DeclarativeBase):
+class BasketItemDB(Base):
     __tablename__ = "basket_item"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
@@ -94,7 +95,7 @@ class BasketItemDB(DeclarativeBase):
     product = relationship("ProductDB")
 
 
-class OrderItemDB(DeclarativeBase):
+class OrderItemDB(Base):
     __tablename__ = "order_item"
 
     id: Mapped[int] = mapped_column(index=True, primary_key=True)
